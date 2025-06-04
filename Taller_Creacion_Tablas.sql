@@ -160,6 +160,20 @@ INSERT INTO usuarios (
 );
 
 
+-- Creacion de usuario extra para comprobar una consulta
+INSERT INTO usuarios (
+    tipo_id,
+    nombre,
+    email,
+    telefono,
+    direccion,
+    ciudad,
+    pais,
+    fecha_registro
+) VALUES
+(1, 'Álvaro Ramos',      'alvaro2.ramos@gmail.com',   '555-0000',   'Av. Central 55',      'Logroño',   'España', '2022-09-10');
+
+
 
 
 INSERT INTO usuarios (
