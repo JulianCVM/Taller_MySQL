@@ -40,3 +40,23 @@ INNER JOIN view_Pedidos_Detalles_pedidos AS vpdp ON vtu.usuario_id = vpdp.client
 -- TODO: Eliminar las vistas creadas si ya no son necesarias
 DROP VIEW view_Tipos_Usuarios_Clientes;
 DROP VIEW view_Pedidos_Detalles_pedidos;
+
+
+
+
+
+--  Consulta: Productos pedidos con su precio unitario
+-- ------------------------------------------------------
+
+-- * Objetivo:
+--     - Listar todos los productos que han sido incluidos en algún pedido.
+--     - Mostrar el nombre del producto y el precio unitario registrado en el pedido.
+
+-- * Tablas/Vistas involucradas:
+--     - productos (pr): Contiene los nombres y datos de los productos.
+--     - view_Pedidos_Detalles_pedidos (VPDP): Vista que incluye detalles de los pedidos, como producto_id y precio_unitario.
+
+SELECT pr.nombre, VPDP.precio_unitario
+FROM productos AS pr
+INNER JOIN view_Pedidos_Detalles_pedidos AS VPDP 
+    ON pr.producto_id = VPDP.producto_id;
