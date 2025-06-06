@@ -297,3 +297,28 @@ FROM productos;
 -- Bicicleta
 -- Reloj Inteligente
 -- Auricular Bluetooth Pro
+
+
+
+
+-- ! Consulta: Productos por proveedor específico
+-- * Obtiene todos los productos que ofrece un proveedor en particular
+-- * Se realiza un JOIN entre productos, la tabla intermedia y proveedores
+-- * Se filtra por el nombre del proveedor deseado
+-- * Cambia el valor en la cláusula WHERE según el proveedor que desees consultar
+
+SELECT pr.*
+FROM productos AS pr
+JOIN proveedores_productos AS prpr
+  ON pr.producto_id = prpr.producto_id
+JOIN proveedores AS prov
+  ON prov.proveedor_id = prpr.proveedor_id
+WHERE prov.nombre = 'Accesorios y Más S.A.S.';  -- <- Cambia aquí el nombre del proveedor
+
+-- ? Lista de proveedores disponibles:
+-- Tech Supplies S.A.
+-- Global Components Ltda.
+-- Electrodomésticos del Norte
+-- Accesorios y Más S.A.S.
+-- Muebles & Diseño S.A.
+-- Proveedor XYZ S.A.S.
