@@ -301,7 +301,7 @@ FROM productos;
 
 
 
--- ! Consulta: Productos por proveedor específico
+-- ! Consulta 12: Productos por proveedor específico
 -- * Obtiene todos los productos que ofrece un proveedor en particular
 -- * Se realiza un JOIN entre productos, la tabla intermedia y proveedores
 -- * Se filtra por el nombre del proveedor deseado
@@ -322,3 +322,19 @@ WHERE prov.nombre = 'Accesorios y Más S.A.S.';  -- <- Cambia aquí el nombre de
 -- Accesorios y Más S.A.S.
 -- Muebles & Diseño S.A.
 -- Proveedor XYZ S.A.S.
+
+
+
+-- Lista los proveedores que no están asociados a ningún producto (es decir, que aún no suministran).
+-- ! Consulta: Proveedores sin productos asociados
+-- * Lista todos los proveedores que aún no están vinculados a ningún producto
+-- * Se usa `LEFT JOIN` para incluir todos los proveedores, incluso los que no tienen coincidencias
+-- * Se filtran aquellos cuyo producto asociado es NULL, lo que indica que no están suministrando nada
+
+SELECT prov.*
+FROM proveedores AS prov
+LEFT JOIN proveedores_productos AS provPr
+  ON prov.proveedor_id = provPr.proveedor_id
+WHERE provPr.producto_id IS NULL;
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         

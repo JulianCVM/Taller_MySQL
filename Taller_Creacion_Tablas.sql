@@ -304,6 +304,7 @@ INSERT INTO empleados (
 INSERT INTO proveedores (
     nombre, email, telefono, direccion, ciudad, pais, fecha_registro
 ) VALUES
+    ('Proveedor de test',           'test@test.com',  '3030303030', 'Calle test', 'test',   'Colombia', '2020-01-01');
     ('Tech Supplies S.A.',           'contacto@techsupplies.com',  '0341-5551234', 'Calle Industria 45', 'Bogotá',   'Colombia', '2023-01-10'),
     ('Global Components Ltda.',       'ventas@globalcomp.com',      '0341-5555678', 'Av. Comercio 123',   'Medellín', 'Colombia', '2022-09-15'),
     ('Electrodomésticos del Norte',   'info@electronorte.com',      '0346-5557890', 'Calle Norte 8',      'Cali',     'Colombia', '2023-03-05'),
