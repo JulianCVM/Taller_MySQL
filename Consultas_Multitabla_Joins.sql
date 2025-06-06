@@ -214,3 +214,15 @@ SELECT
 FROM empleados AS emp
 LEFT JOIN pedidos AS pe ON emp.empleado_id = pe.empleado_id
 WHERE pe.pedido_id IS NULL;
+
+
+
+-- ! Consulta 8: Total gastado por pedido
+-- * Calcula el valor total de cada pedido multiplicando la cantidad por el precio unitario de cada producto
+-- * Utiliza un `JOIN` entre pedidos y detalles_pedidos para combinar la información
+-- * Muestra el ID del pedido y el valor total correspondiente a cada detalle (producto) del pedido
+
+SELECT pe.pedido_id, (pd.cantidad * pd.precio_unitario) AS valorPedido
+FROM pedidos AS pe
+JOIN detalles_pedidos AS pd 
+ON pe.pedido_id = pd.pedido_id;
