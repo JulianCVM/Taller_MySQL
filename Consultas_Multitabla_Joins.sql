@@ -122,3 +122,33 @@ FROM view_cliente_pedido AS VCP
 INNER JOIN view_empleado_pedido AS VEP 
     ON VCP.pedido_id = VEP.pedido_id
 ORDER BY VCP.nombre ASC;
+
+
+
+
+-- ! Consulta 4: Pedidos con detalles y productos
+-- * Muestra todos los pedidos junto con los productos asociados en cada uno (si los hay)
+-- * Incluye también los pedidos que no tienen productos aún, usando LEFT JOIN
+
+-- ? Tablas de referencia
+SELECT * FROM pedidos;
+SELECT * FROM detalles_pedidos;
+SELECT * FROM productos;
+
+-- ? Consulta completa con columnas explícitas para mayor claridad y evitar duplicados
+SELECT 
+  pe.pedido_id,                -- ID del pedido
+  pe.cliente_id,               -- ID del cliente
+  pe.empleado_id,              -- ID del empleado
+  pe.fecha_pedido,             -- Fecha en que se realizó el pedido
+  pe.estado,                   -- Estado actual del pedido
+  dp.detalle_id,               -- ID del detalle del pedido
+  dp.cantidad,                 -- Cantidad de unidades pedidas
+  dp.precio_unitario,          -- Precio por unidad en el detalle
+  pr.producto_id,              -- ID del producto
+  pr.nombre AS producto_nombre, -- Nombre del producto
+  pr.categoria,                -- Categoría del producto
+  pr.precio AS producto_precio -- Precio registrado del producto
+FROM pedidos AS pe
+LEFT JOIN detalles_pedidos AS dp ON pe.pedido_id = dp.pedido_id
+LEFT JOIN productos AS pr ON dp.producto_id = pr.producto_id;
