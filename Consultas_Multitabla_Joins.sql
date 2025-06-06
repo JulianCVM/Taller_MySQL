@@ -45,7 +45,7 @@ DROP VIEW view_Pedidos_Detalles_pedidos;
 
 
 
---  Consulta: Productos pedidos con su precio unitario
+--  Consult 2: Productos pedidos con su precio unitario
 -- ------------------------------------------------------
 
 -- * Objetivo:
@@ -60,3 +60,65 @@ SELECT pr.nombre, VPDP.precio_unitario
 FROM productos AS pr
 INNER JOIN view_Pedidos_Detalles_pedidos AS VPDP 
     ON pr.producto_id = VPDP.producto_id;
+
+
+
+
+
+
+
+
+
+
+--  Consulta 3: Nombres de clientes y empleados que gestionaron sus pedidos
+-- ------------------------------------------------------------------------
+
+-- * Objetivo:
+--     - Mostrar los nombres de los clientes junto con los nombres de los empleados que gestionaron sus pedidos.
+--     - Utiliza vistas intermedias para organizar y simplificar las relaciones entre tablas.
+
+-- ! Vista: Usuarios que son empleados
+CREATE VIEW view_tipos_usuarios_empleados AS
+SELECT us.usuario_id, us.nombre
+FROM tipos_usuarios AS tu
+INNER JOIN usuarios AS us 
+    ON tu.tipo_id = us.tipo_id
+WHERE tu.nombre = 'empleado';
+
+-- ! Vista: Información detallada de empleados
+-- * Une los usuarios que son empleados con la tabla empleados para obtener todos los datos relevantes.
+CREATE VIEW view_empleados_data AS
+SELECT VTUE.usuario_id, VTUE.nombre, emp.empleado_id, emp.puesto, emp.fecha_contratacion, emp.salario 
+FROM view_tipos_usuarios_empleados AS VTUE
+INNER JOIN empleados AS emp
+    ON emp.usuario_id = VTUE.usuario_id;
+
+-- ! Vista: Relación de empleados con pedidos gestionados
+-- * Requiere que la tabla 'pedidos' tenga una columna 'empleado_id' que indique quién gestionó el pedido.
+DROP VIEW IF EXISTS view_empleado_pedido;
+CREATE VIEW view_empleado_pedido AS
+SELECT VED.*, ped.pedido_id, ped.cliente_id, ped.fecha_pedido, ped.estado
+FROM view_empleados_data AS VED
+INNER JOIN pedidos AS ped 
+    ON VED.empleado_id = ped.empleado_id;
+
+-- ! Vista: Relación de clientes con pedidos realizados
+DROP VIEW IF EXISTS view_cliente_pedido;
+CREATE VIEW view_cliente_pedido AS
+SELECT ped.cliente_id, VTUC.nombre, ped.pedido_id, ped.fecha_pedido, ped.estado
+FROM view_tipos_usuarios_clientes AS VTUC
+INNER JOIN pedidos AS ped 
+    ON VTUC.usuario_id = ped.cliente_id;
+
+--  Consultas de verificación (útiles en desarrollo)
+SELECT * FROM pedidos;
+SELECT * FROM empleados;
+SELECT * FROM usuarios;
+
+--   Resultado final: Nombres de clientes con los nombres de empleados que gestionaron sus pedidos
+-- * Se cruzan las vistas cliente-pedido y empleado-pedido a través del ID del pedido.
+SELECT VCP.nombre AS nombre_cliente, VEP.nombre AS nombre_empleado
+FROM view_cliente_pedido AS VCP
+INNER JOIN view_empleado_pedido AS VEP 
+    ON VCP.pedido_id = VEP.pedido_id
+ORDER BY VCP.nombre ASC;
