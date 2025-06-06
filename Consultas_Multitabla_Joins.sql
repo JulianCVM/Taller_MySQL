@@ -189,3 +189,28 @@ SELECT
   pe.estado
 FROM empleados AS emp
 LEFT JOIN pedidos AS pe ON emp.empleado_id = pe.empleado_id;
+
+
+
+
+-- ! Consulta 7: Empleados sin pedidos gestionados
+-- * Encuentra los empleados que no han gestionado ningún pedido
+-- * Utiliza `LEFT JOIN` para incluir todos los empleados
+-- * La condición `WHERE pedido_id IS NULL` asegura que se filtren solo los que no tienen pedidos asociados
+
+
+-- ! Consulta mostrando toda la data completa
+-- SELECT *
+-- FROM empleados AS emp
+-- LEFT JOIN pedidos AS pe
+-- ON emp.empleado_id = pe.empleado_id
+-- WHERE pedido_id IS NULL;
+SELECT 
+  emp.empleado_id,
+  emp.usuario_id,
+  emp.puesto,
+  emp.fecha_contratacion,
+  emp.salario
+FROM empleados AS emp
+LEFT JOIN pedidos AS pe ON emp.empleado_id = pe.empleado_id
+WHERE pe.pedido_id IS NULL;
