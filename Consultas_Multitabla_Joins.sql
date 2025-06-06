@@ -230,7 +230,8 @@ ON pe.pedido_id = pd.pedido_id;
 
 
 
--- ! Consulta 9: Combinación total de clientes y productos
+-- ! Consulta 9
+: Combinación total de clientes y productos
 -- * Realiza un `CROSS JOIN` para obtener todas las combinaciones posibles entre clientes y productos
 -- * Muestra todas las filas donde cada cliente se combina con cada producto
 -- * Nota: En `CROSS JOIN` no se debe usar condición ON, ya que une todas las filas de ambas tablas sin filtrar
@@ -239,3 +240,19 @@ SELECT *
 FROM view_tipos_usuarios_clientes AS VTUC
 CROSS JOIN productos AS pr
 ON VTUC.usuario_id = pr.producto_id;
+
+
+
+-- ! Consulta 10: Clientes y productos comprados (si existen)
+-- * Obtiene los nombres de los clientes y los nombres de los productos que han comprado
+-- * Usa `LEFT JOIN` para incluir también los clientes que no han realizado ningún pedido
+-- * La primera unión relaciona clientes con sus pedidos y detalles
+-- * La segunda unión asocia los detalles de pedidos con los productos correspondientes
+
+
+SELECT VTUC.nombre, pr.nombre
+FROM view_tipos_usuarios_clientes AS VTUC
+LEFT JOIN view_pedidos_detalles_pedidos AS VPDP
+ON VTUC.usuario_id = VPDP.cliente_id
+LEFT JOIN productos AS pr
+ON pr.producto_id = VPDP.producto_id;
