@@ -326,7 +326,7 @@ WHERE prov.nombre = 'Accesorios y Más S.A.S.';  -- <- Cambia aquí el nombre de
 
 
 -- Lista los proveedores que no están asociados a ningún producto (es decir, que aún no suministran).
--- ! Consulta: Proveedores sin productos asociados
+-- ! Consulta 13: Proveedores sin productos asociados
 -- * Lista todos los proveedores que aún no están vinculados a ningún producto
 -- * Se usa `LEFT JOIN` para incluir todos los proveedores, incluso los que no tienen coincidencias
 -- * Se filtran aquellos cuyo producto asociado es NULL, lo que indica que no están suministrando nada
@@ -339,7 +339,7 @@ WHERE provPr.producto_id IS NULL;
 
 
 
--- ! Consulta: Número de proveedores por producto
+-- ! Consulta 14: Número de proveedores por producto
 -- * Cuenta cuántos proveedores están asociados a cada producto
 -- * Muestra el nombre del producto y la cantidad de proveedores que lo suministran
 -- * Se utiliza `JOIN` para relacionar productos con sus proveedores
@@ -352,3 +352,18 @@ JOIN proveedores_productos AS pp
 JOIN productos AS prd
   ON prd.producto_id = pp.producto_id
 GROUP BY prd.nombre;
+
+
+
+-- ! Consulta 15: Productos suministrados por un proveedor específico
+-- * Muestra el nombre de todos los productos que suministra un proveedor determinado
+-- * Se realiza un `JOIN` entre proveedores, la tabla intermedia y productos
+-- * Se filtra por `proveedor_id = 3`, pero puede ajustarse según el proveedor deseado
+
+SELECT prd.nombre
+FROM proveedores AS pr
+JOIN proveedores_productos AS pp
+  ON pr.proveedor_id = pp.proveedor_id
+JOIN productos AS prd
+  ON prd.producto_id = pp.producto_id
+WHERE pr.proveedor_id = 3;  -- ? Cambia el ID aquí para otro proveedor
