@@ -205,7 +205,8 @@ INSERT INTO usuarios (
     (2, 'Paula Rueda',      'paula.rueda@empresa.com',       NULL, NULL, NULL, NULL, '2018-05-10'),
     (2, 'Miguel Gil',       'miguel.gil@empresa.com',        NULL, NULL, NULL, NULL, '2021-04-12'),
     (2, 'Rocío López',      'rocio.lopez@empresa.com',       NULL, NULL, NULL, NULL, '2022-02-20'),
-    (2, 'Andrés Navas',     'andres.navas@empresa.com',      NULL, NULL, NULL, NULL, '2021-12-13');
+    (2, 'Andrés Navas',     'andres.navas@empresa.com',      NULL, NULL, NULL, NULL, '2021-12-13'),
+    (2, 'Andrés Navas',     'andres2.navas@empresa.com',      NULL, NULL, NULL, NULL, '2021-12-13');
     
 INSERT INTO empleados (
     usuario_id,
@@ -213,6 +214,10 @@ INSERT INTO empleados (
     fecha_contratacion,
     salario
 ) VALUES
+    (
+      (SELECT usuario_id FROM usuarios WHERE email = 'andres2.navas@empresa.com'),
+      'Empleado test', '2020-05-10', 3500000.00
+    )
     (
       (SELECT usuario_id FROM usuarios WHERE email = 'carlos.lopez@empresa.com'),
       'Gerente de Ventas',    '2020-05-10', 3500000.00
