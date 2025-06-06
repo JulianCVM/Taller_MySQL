@@ -157,7 +157,7 @@ LEFT JOIN productos AS pr ON dp.producto_id = pr.producto_id;
 
 
 
--- ! Consulta: Productos y detalles de pedidos asociados (uso de RIGHT JOIN)
+-- ! Consulta 5: Productos y detalles de pedidos asociados (uso de RIGHT JOIN)
 -- * Muestra todos los pedidos, junto con los detalles y los productos involucrados
 -- * Utiliza RIGHT JOIN para asegurar que se incluyan todos los registros de pedidos,
 -- * incluso si no tienen productos relacionados directamente
@@ -168,3 +168,24 @@ SELECT *
 FROM productos AS pr
 RIGHT JOIN detalles_pedidos AS dp ON pr.producto_id = dp.producto_id
 RIGHT JOIN pedidos AS pe ON dp.pedido_id = pe.pedido_id;
+
+
+
+
+-- ! Consulta 6: Empleados y sus pedidos (LEFT JOIN)
+-- * Lista todos los empleados junto con los pedidos que han gestionado
+-- * Incluye también los empleados que no tienen pedidos asociados
+-- ? Útil para ver qué empleados aún no han gestionado pedidos
+
+SELECT 
+  emp.empleado_id,
+  emp.usuario_id,
+  emp.puesto,
+  emp.fecha_contratacion,
+  emp.salario,
+  pe.pedido_id,
+  pe.cliente_id,
+  pe.fecha_pedido,
+  pe.estado
+FROM empleados AS emp
+LEFT JOIN pedidos AS pe ON emp.empleado_id = pe.empleado_id;
