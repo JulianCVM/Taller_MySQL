@@ -226,3 +226,16 @@ SELECT pe.pedido_id, (pd.cantidad * pd.precio_unitario) AS valorPedido
 FROM pedidos AS pe
 JOIN detalles_pedidos AS pd 
 ON pe.pedido_id = pd.pedido_id;
+
+
+
+
+-- ! Consulta 9: Combinación total de clientes y productos
+-- * Realiza un `CROSS JOIN` para obtener todas las combinaciones posibles entre clientes y productos
+-- * Muestra todas las filas donde cada cliente se combina con cada producto
+-- * Nota: En `CROSS JOIN` no se debe usar condición ON, ya que une todas las filas de ambas tablas sin filtrar
+
+SELECT *
+FROM view_tipos_usuarios_clientes AS VTUC
+CROSS JOIN productos AS pr
+ON VTUC.usuario_id = pr.producto_id;
