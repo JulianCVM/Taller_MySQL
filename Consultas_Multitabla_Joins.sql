@@ -256,3 +256,44 @@ LEFT JOIN view_pedidos_detalles_pedidos AS VPDP
 ON VTUC.usuario_id = VPDP.cliente_id
 LEFT JOIN productos AS pr
 ON pr.producto_id = VPDP.producto_id;
+
+
+-- ! Consulta 11: Proveedores por producto específico
+-- * Lista todos los proveedores que suministran un producto determinado
+-- * Se une la tabla de proveedores con la tabla intermedia de productos-proveedores
+-- * Luego se une con la tabla de productos para filtrar por el nombre del producto
+-- * Cambia el valor en la cláusula WHERE para buscar por otro producto específico
+
+SELECT prov.*, pr.*
+FROM proveedores AS prov
+JOIN proveedores_productos AS provPr
+  ON prov.proveedor_id = provPr.proveedor_id
+JOIN productos AS pr
+  ON pr.producto_id = provPr.producto_id
+WHERE pr.nombre = 'Televisor';  -- <- Cambia aquí el nombre del producto deseado
+
+
+SELECT productos.nombre
+FROM productos;
+
+-- Laptop
+-- Smartphone
+-- Televisor
+-- Auriculares
+-- Teclado
+-- Ratón
+-- Impresora
+-- Escritorio
+-- Silla
+-- Tableta
+-- Lámpara
+-- Ventilador
+-- Microondas
+-- Licuadora
+-- Refrigerador
+-- Cafetera
+-- Altavoces
+-- Monitor
+-- Bicicleta
+-- Reloj Inteligente
+-- Auricular Bluetooth Pro
