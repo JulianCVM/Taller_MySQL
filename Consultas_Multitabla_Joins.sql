@@ -337,4 +337,18 @@ LEFT JOIN proveedores_productos AS provPr
   ON prov.proveedor_id = provPr.proveedor_id
 WHERE provPr.producto_id IS NULL;
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+
+
+-- ! Consulta: Número de proveedores por producto
+-- * Cuenta cuántos proveedores están asociados a cada producto
+-- * Muestra el nombre del producto y la cantidad de proveedores que lo suministran
+-- * Se utiliza `JOIN` para relacionar productos con sus proveedores
+-- * Se agrupa por nombre del producto para obtener un conteo por cada uno
+
+SELECT COUNT(pr.proveedor_id) AS total_proveedores, prd.nombre AS nombre_producto
+FROM proveedores AS pr
+JOIN proveedores_productos AS pp
+  ON pr.proveedor_id = pp.proveedor_id
+JOIN productos AS prd
+  ON prd.producto_id = pp.producto_id
+GROUP BY prd.nombre;
