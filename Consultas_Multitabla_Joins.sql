@@ -152,3 +152,19 @@ SELECT
 FROM pedidos AS pe
 LEFT JOIN detalles_pedidos AS dp ON pe.pedido_id = dp.pedido_id
 LEFT JOIN productos AS pr ON dp.producto_id = pr.producto_id;
+
+
+
+
+
+-- ! Consulta: Productos y detalles de pedidos asociados (uso de RIGHT JOIN)
+-- * Muestra todos los pedidos, junto con los detalles y los productos involucrados
+-- * Utiliza RIGHT JOIN para asegurar que se incluyan todos los registros de pedidos,
+-- * incluso si no tienen productos relacionados directamente
+-- ? Si un producto no está en un pedido, no aparecerá, ya que RIGHT JOIN prioriza la tabla derecha
+-- TODO: Considerar usar LEFT JOIN desde `productos` si se desea ver productos sin pedidos
+
+SELECT *
+FROM productos AS pr
+RIGHT JOIN detalles_pedidos AS dp ON pr.producto_id = dp.producto_id
+RIGHT JOIN pedidos AS pe ON dp.pedido_id = pe.pedido_id;
